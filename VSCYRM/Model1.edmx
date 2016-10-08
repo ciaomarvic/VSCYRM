@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="vscyrmModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cargos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="turno" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fecha_nac" Type="date" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marcajes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="12" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="hora_asignada" Type="time" Precision="0" />
+          <Property Name="hora_capturada" Type="time" Precision="0" />
+          <Property Name="jornada" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="reglas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Regla" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="variable" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="condicion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="nota" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="turno_complejo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="lun11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="lun12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="lun21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="lun22" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mar11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mar12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mar21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mar22" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mie11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mie12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mie21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="mie22" Type="time" Precision="0" Nullable="false" />
+          <Property Name="jue11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="jue12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="jue21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="jue22" Type="time" Precision="0" Nullable="false" />
+          <Property Name="vie11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="vie12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="vie21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="vie22" Type="time" Precision="0" Nullable="false" />
+          <Property Name="sab11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="sab12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="sab21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="sab22" Type="time" Precision="0" Nullable="false" />
+          <Property Name="dom11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="dom12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="dom21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="dom22" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="turno_sencillo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="HE11" Type="time" Precision="0" Nullable="false" />
+          <Property Name="HS12" Type="time" Precision="0" Nullable="false" />
+          <Property Name="HE21" Type="time" Precision="0" Nullable="false" />
+          <Property Name="HS22" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <Function Name="Buscar_Horario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="vscyrm">
+          <Parameter Name="Codigo" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="vscyrmModelStoreContainer">
+          <EntitySet Name="cargos" EntityType="Self.cargos" Schema="vscyrm" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="vscyrm" store:Type="Tables" />
+          <EntitySet Name="marcajes" EntityType="Self.marcajes" Schema="vscyrm" store:Type="Tables" />
+          <EntitySet Name="reglas" EntityType="Self.reglas" Schema="vscyrm" store:Type="Tables" />
+          <EntitySet Name="turno_complejo" EntityType="Self.turno_complejo" Schema="vscyrm" store:Type="Tables" />
+          <EntitySet Name="turno_sencillo" EntityType="Self.turno_sencillo" Schema="vscyrm" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vscyrmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cargo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="turno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nac" Type="DateTime" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marcaje">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" />
+          <Property Name="hora_asignada" Type="Time" />
+          <Property Name="hora_capturada" Type="Time" />
+          <Property Name="jornada" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="regla">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Regla1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="variable" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="condicion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nota" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="turno_complejo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lun11" Type="Time" Nullable="false" />
+          <Property Name="lun12" Type="Time" Nullable="false" />
+          <Property Name="lun21" Type="Time" Nullable="false" />
+          <Property Name="lun22" Type="Time" Nullable="false" />
+          <Property Name="mar11" Type="Time" Nullable="false" />
+          <Property Name="mar12" Type="Time" Nullable="false" />
+          <Property Name="mar21" Type="Time" Nullable="false" />
+          <Property Name="mar22" Type="Time" Nullable="false" />
+          <Property Name="mie11" Type="Time" Nullable="false" />
+          <Property Name="mie12" Type="Time" Nullable="false" />
+          <Property Name="mie21" Type="Time" Nullable="false" />
+          <Property Name="mie22" Type="Time" Nullable="false" />
+          <Property Name="jue11" Type="Time" Nullable="false" />
+          <Property Name="jue12" Type="Time" Nullable="false" />
+          <Property Name="jue21" Type="Time" Nullable="false" />
+          <Property Name="jue22" Type="Time" Nullable="false" />
+          <Property Name="vie11" Type="Time" Nullable="false" />
+          <Property Name="vie12" Type="Time" Nullable="false" />
+          <Property Name="vie21" Type="Time" Nullable="false" />
+          <Property Name="vie22" Type="Time" Nullable="false" />
+          <Property Name="sab11" Type="Time" Nullable="false" />
+          <Property Name="sab12" Type="Time" Nullable="false" />
+          <Property Name="sab21" Type="Time" Nullable="false" />
+          <Property Name="sab22" Type="Time" Nullable="false" />
+          <Property Name="dom11" Type="Time" Nullable="false" />
+          <Property Name="dom12" Type="Time" Nullable="false" />
+          <Property Name="dom21" Type="Time" Nullable="false" />
+          <Property Name="dom22" Type="Time" Nullable="false" />
+        </EntityType>
+        <EntityType Name="turno_sencillo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HE11" Type="Time" Nullable="false" />
+          <Property Name="HS12" Type="Time" Nullable="false" />
+          <Property Name="HE21" Type="Time" Nullable="false" />
+          <Property Name="HS22" Type="Time" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="vscyrmEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cargos" EntityType="Self.cargo" />
+          <EntitySet Name="empleadoes" EntityType="Self.empleado" />
+          <EntitySet Name="marcajes" EntityType="Self.marcaje" />
+          <EntitySet Name="reglas" EntityType="Self.regla" />
+          <EntitySet Name="turno_complejo" EntityType="Self.turno_complejo" />
+          <EntitySet Name="turno_sencillo" EntityType="Self.turno_sencillo" />
+          <FunctionImport Name="Buscar_Horario" ReturnType="Collection(vscyrmModel.Buscar_Horario_Result)">
+            <Parameter Name="Codigo" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Buscar_Horario_Result" />
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vscyrmModelStoreContainer" CdmEntityContainer="vscyrmEntities">
+          <EntitySetMapping Name="cargos">
+            <EntityTypeMapping TypeName="vscyrmModel.cargo">
+              <MappingFragment StoreEntitySet="cargos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleadoes">
+            <EntityTypeMapping TypeName="vscyrmModel.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="turno" ColumnName="turno" />
+                <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marcajes">
+            <EntityTypeMapping TypeName="vscyrmModel.marcaje">
+              <MappingFragment StoreEntitySet="marcajes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora_asignada" ColumnName="hora_asignada" />
+                <ScalarProperty Name="hora_capturada" ColumnName="hora_capturada" />
+                <ScalarProperty Name="jornada" ColumnName="jornada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reglas">
+            <EntityTypeMapping TypeName="vscyrmModel.regla">
+              <MappingFragment StoreEntitySet="reglas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Regla1" ColumnName="Regla" />
+                <ScalarProperty Name="variable" ColumnName="variable" />
+                <ScalarProperty Name="condicion" ColumnName="condicion" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="turno_complejo">
+            <EntityTypeMapping TypeName="vscyrmModel.turno_complejo">
+              <MappingFragment StoreEntitySet="turno_complejo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="lun11" ColumnName="lun11" />
+                <ScalarProperty Name="lun12" ColumnName="lun12" />
+                <ScalarProperty Name="lun21" ColumnName="lun21" />
+                <ScalarProperty Name="lun22" ColumnName="lun22" />
+                <ScalarProperty Name="mar11" ColumnName="mar11" />
+                <ScalarProperty Name="mar12" ColumnName="mar12" />
+                <ScalarProperty Name="mar21" ColumnName="mar21" />
+                <ScalarProperty Name="mar22" ColumnName="mar22" />
+                <ScalarProperty Name="mie11" ColumnName="mie11" />
+                <ScalarProperty Name="mie12" ColumnName="mie12" />
+                <ScalarProperty Name="mie21" ColumnName="mie21" />
+                <ScalarProperty Name="mie22" ColumnName="mie22" />
+                <ScalarProperty Name="jue11" ColumnName="jue11" />
+                <ScalarProperty Name="jue12" ColumnName="jue12" />
+                <ScalarProperty Name="jue21" ColumnName="jue21" />
+                <ScalarProperty Name="jue22" ColumnName="jue22" />
+                <ScalarProperty Name="vie11" ColumnName="vie11" />
+                <ScalarProperty Name="vie12" ColumnName="vie12" />
+                <ScalarProperty Name="vie21" ColumnName="vie21" />
+                <ScalarProperty Name="vie22" ColumnName="vie22" />
+                <ScalarProperty Name="sab11" ColumnName="sab11" />
+                <ScalarProperty Name="sab12" ColumnName="sab12" />
+                <ScalarProperty Name="sab21" ColumnName="sab21" />
+                <ScalarProperty Name="sab22" ColumnName="sab22" />
+                <ScalarProperty Name="dom11" ColumnName="dom11" />
+                <ScalarProperty Name="dom12" ColumnName="dom12" />
+                <ScalarProperty Name="dom21" ColumnName="dom21" />
+                <ScalarProperty Name="dom22" ColumnName="dom22" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="turno_sencillo">
+            <EntityTypeMapping TypeName="vscyrmModel.turno_sencillo">
+              <MappingFragment StoreEntitySet="turno_sencillo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="HE11" ColumnName="HE11" />
+                <ScalarProperty Name="HS12" ColumnName="HS12" />
+                <ScalarProperty Name="HE21" ColumnName="HE21" />
+                <ScalarProperty Name="HS22" ColumnName="HS22" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Buscar_Horario" FunctionName="vscyrmModel.Store.Buscar_Horario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="vscyrmModel.Buscar_Horario_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
