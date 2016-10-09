@@ -13,7 +13,6 @@ Public Class FrmMarcaje
     Public Hora22 As String
     Public Horario(28) As Timer
     Private Sub FrmMarcaje_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 
     Private Sub TimerMarcaje_Tick(sender As Object, e As EventArgs) Handles TimerMarcaje.Tick
@@ -32,17 +31,25 @@ Public Class FrmMarcaje
         Dim SpCmd As MySqlCommand
         Dim Parm1 As MySqlParameter
         Dim CmdReader As MySqlDataReader
+
+        Dim Cumpleaños As Boolean = False
         Dim Sql As String
+
         Dim Nombre As String
         Dim Apellido As String
         Dim Cedula As String
+        Dim Cargo As String
         Dim Dia As String
+        Dim Jornada As String
+        Dim Fecha As String
+
         Dim J11 As String = ""
         Dim J12 As String = ""
         Dim J21 As String = ""
         Dim J22 As String = ""
-        Dim HoraCap As String
-
+        Dim NumJornadas As String
+        Dim CompletaJor As Boolean
+        Dim EmpRecord As frmMostrar
 
         Try
             cnn = New Conexion()
@@ -55,58 +62,61 @@ Public Class FrmMarcaje
             CmdReader = SpCmd.ExecuteReader
 
             Dia = UCase(Microsoft.VisualBasic.Left(DateValue(Now).ToString("dddd", New CultureInfo("es-ES")), 3))
-            Debug.Print(Dia)
+
             If CmdReader.Read Then
+                Fecha = DateTime.Now
+                Debug.Print(Fecha)
                 Cedula = CmdReader.GetString(0)
-                Nombre = CmdReader.GetString(1)
-                Apellido = CmdReader.GetString(2)
-                Select Case Dia
-                    Case "LUN"
-                        J11 = CmdReader.GetString(4)
-                        J12 = CmdReader.GetString(5)
-                        J21 = CmdReader.GetString(6)
-                        J22 = CmdReader.GetString(7)
-                    Case "MAR"
-                        J11 = CmdReader.GetString(8)
-                        J12 = CmdReader.GetString(9)
-                        J21 = CmdReader.GetString(10)
-                        J22 = CmdReader.GetString(11)
-                    Case "MIÉ"
-                        J11 = CmdReader.GetString(12)
-                        J12 = CmdReader.GetString(13)
-                        J21 = CmdReader.GetString(14)
-                        J22 = CmdReader.GetString(15)
-                    Case "JUE"
-                        J11 = CmdReader.GetString(16)
-                        J12 = CmdReader.GetString(17)
-                        J21 = CmdReader.GetString(18)
-                        J22 = CmdReader.GetString(19)
-                    Case "VIE"
-                        J11 = CmdReader.GetString(20)
-                        J12 = CmdReader.GetString(21)
-                        J21 = CmdReader.GetString(22)
-                        J22 = CmdReader.GetString(23)
-                    Case "SÁB"
-                        J11 = CmdReader.GetString(24)
-                        J12 = CmdReader.GetString(25)
-                        J21 = CmdReader.GetString(26)
-                        J22 = CmdReader.GetString(27)
-                    Case "DOM"
-                        J11 = CmdReader.GetString(28)
-                        J12 = CmdReader.GetString(29)
-                        J21 = CmdReader.GetString(30)
-                        J22 = CmdReader.GetString(31)
+                NumJornadas = CmdReader.GetString(1)
+                Nombre = CmdReader.GetString(2)
+                Apellido = CmdReader.GetString(3)
+                Cargo = CmdReader.GetString(4)
+                Cumpleaños = IIf(CmdReader.GetString(5).Equals("S"), True, False)
+                J11 = CmdReader.GetString(6)
+                J12 = CmdReader.GetString(7)
+                J21 = CmdReader.GetString(8)
+                J22 = CmdReader.GetString(9)
+
+                EmpRecord = New frmMostrar()
+                EmpRecord.oCedula = Cedula
+                EmpRecord.oHoraCap = lblHora.Text
+                EmpRecord.oNombre = Nombre
+                EmpRecord.oApellido = Apellido
+
+                Select Case NumJornadas
+                    Case "0"
+                        EmpRecord.oJornada = "ENTRADA - 1º JORNADA"
+                        EmpRecord.oHorario = J11
+                        Jornada = Dia + "11"
+                    Case "1"
+                        EmpRecord.oJornada = "SALIDA  - 1º JORNADA"
+                        EmpRecord.oHorario = J12
+                        Jornada = Dia + "12"
+                    Case "2"
+                        EmpRecord.oJornada = "ENTRADA - 2º JORNADA"
+                        EmpRecord.oHorario = J21
+                        Jornada = Dia + "21"
+                    Case "3"
+                        EmpRecord.oJornada = "SALIDA  - 2º JORNADA"
+                        EmpRecord.oHorario = J22
+                        Jornada = Dia + "22"
+                    Case Else
+                        CompletaJor = True
                 End Select
 
-                Dim EmpRecord As frmMostrar
-                EmpRecord = New frmMostrar()
-                EmpRecord.oCedula = CmdReader.GetString(0)
-                EmpRecord.oHoraCap = lblHora.Text
-                EmpRecord.oNombre = CmdReader.GetString(1)
-                EmpRecord.oApellido = CmdReader.GetString(2)
-                EmpRecord.oHorario = J11
-                EmpRecord.oJornada = "ENTRADA - MAÑANA"
-                EmpRecord.MostrarRegistroCap()
+                If Not CompletaJor Then
+                    If Cumpleaños Then
+                        EmpRecord.Cumplefrm()
+                    Else
+                        EmpRecord.Restaurarfrm()
+                    End If
+                    EmpRecord.MostrarRegistroCap()
+                Else
+                    MsgBox("Registros del Dia Completados")
+
+                    ' EmpRecord.ConsultarRegistroCap()
+                End If
+
             Else
                 MsgBox("Error al registrar marcaje " &
             vbCrLf & vbCrLf & "Informe de Inmediato",
@@ -124,7 +134,7 @@ Public Class FrmMarcaje
     End Sub
 
 
-    Private Sub InsertReg()
+    Friend Sub InsertReg(I_Cedula As String, I_Fecha As String, I_HoraAsig As String, I_HoraCap As String, I_Jornada As String)
         Dim conn As New MySqlConnection
         Dim cmd As New MySqlCommand
 

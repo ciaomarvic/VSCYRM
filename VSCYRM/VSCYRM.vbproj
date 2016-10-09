@@ -255,6 +255,8 @@
     <None Include="Resources\Base - 2.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cumpleanos.gif" />
+    <None Include="Resources\ic_barcode.png" />
     <Content Include="Resources\imageres_5324.ico" />
     <None Include="Resources\Mini Base.jpg" />
   </ItemGroup>

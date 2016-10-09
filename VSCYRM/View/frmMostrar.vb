@@ -11,6 +11,25 @@
         lblNombre.Text = oNombre & "  " & oApellido
         Me.Show()
     End Sub
+    Public Sub ConsultarRegistroCap()
+        lblCedula.Text = oCedula
+        lblHoraCap.Text = oHoraCap
+        lblHorario.Text = oHorario
+        lblJornada.Text = oJornada
+        lblNombre.Text = oNombre & "  " & oApellido
+        Me.Show()
+    End Sub
+
+    Public Sub Cumplefrm()
+        Me.Height = 457
+        Me.Width = 520
+
+    End Sub
+    Public Sub Restaurarfrm()
+        Me.Height = 261
+        Me.Width = 520
+
+    End Sub
     Private Sub frmMostrar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If Asc(e.KeyChar) = 13 Then
             Limpiar()

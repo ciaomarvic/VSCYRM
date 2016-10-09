@@ -29,7 +29,9 @@ Partial Class FrmMarcaje
         Me.lblFecha = New System.Windows.Forms.Label()
         Me.lblHora = New System.Windows.Forms.Label()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PictureBox
@@ -69,20 +71,32 @@ Partial Class FrmMarcaje
         Me.lblHora.Image = Global.VSCYRM.My.Resources.Resources.barra
         Me.lblHora.Location = New System.Drawing.Point(136, 192)
         Me.lblHora.Name = "lblHora"
-        Me.lblHora.Size = New System.Drawing.Size(454, 91)
+        Me.lblHora.Size = New System.Drawing.Size(355, 91)
         Me.lblHora.TabIndex = 2
-        Me.lblHora.Text = "9:00:00 PM"
+        Me.lblHora.Text = "00:00:00"
         Me.lblHora.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'txtCodigo
         '
         Me.txtCodigo.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCodigo.Location = New System.Drawing.Point(271, 330)
+        Me.txtCodigo.Location = New System.Drawing.Point(290, 315)
         Me.txtCodigo.MaxLength = 14
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.Size = New System.Drawing.Size(146, 29)
         Me.txtCodigo.TabIndex = 1
         Me.txtCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.Enabled = False
+        Me.PictureBox1.Image = Global.VSCYRM.My.Resources.Resources.ic_barcode
+        Me.PictureBox1.Location = New System.Drawing.Point(233, 314)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(51, 30)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 3
+        Me.PictureBox1.TabStop = False
         '
         'FrmMarcaje
         '
@@ -90,6 +104,7 @@ Partial Class FrmMarcaje
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.VSCYRM.My.Resources.Resources.Base___2
         Me.ClientSize = New System.Drawing.Size(689, 392)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.txtCodigo)
         Me.Controls.Add(Me.lblHora)
         Me.Controls.Add(Me.lblFecha)
@@ -100,6 +115,7 @@ Partial Class FrmMarcaje
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Registro y Control de Marcajes    Version 1.0"
         CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -110,4 +126,5 @@ Partial Class FrmMarcaje
     Friend WithEvents lblFecha As Label
     Friend WithEvents lblHora As Label
     Friend WithEvents txtCodigo As TextBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
