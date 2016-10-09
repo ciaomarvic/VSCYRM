@@ -1,8 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System
 
-Namespace DesignMysql
-    Public Class Conexion
+'Namespace DesignMysql
+Public Class Conexion
         Implements IDisposable
         Public Connection As MySqlConnection
         Public Command As MySqlCommand
@@ -50,5 +50,5 @@ Namespace DesignMysql
 
 
     End Class
-End Namespace
+'End Namespace
 
